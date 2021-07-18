@@ -1,0 +1,130 @@
+
+Modules
+-install nginx server
+-start nginx server
+-copy file with the server
+-start the docker container
+-db back
+-monitoring
+-..... may have many modules starting from small specific task
+
+ansible uses YAML 
+
+modules are granular and specific
+-multiple modules
+-in a certain sequences
+-group together
+Ansible Playbooks introduce
+
+Ansible Playbooks
+-Module Name
+-Arguments
+rename table->Set Owner -> Truncate table
+### Example ######
+Execute multiple modules in a sequence:
+task:
+    - name: create directory for nginx
+        file:
+            path: /etc/nginx/conf.d
+            state: directory
+    
+    - name: install nginx latest version
+        yum:
+            name: nginx
+            state: latest
+    
+    - name: start nginx
+        service:
+            name: nginx
+            state: started
+#######
+This a one sequence of task with 1 configurations
+#######
+Now comes where these tasks Execute?
+This is define by host attribute
+- hosts: webserver1
+    remote_user: satya.maharjan
+
+    task:
+    - name: create directory for nginx
+        file:
+            path: /etc/nginx/conf.d
+            state: directory
+............
+
+"Play"
+-which task
+-which hosts
+-which remote_user
+################
+Playbook = 1 or more Play
+
+- hosts: webservers
+    remote_user: satya.maharjan
+
+    task:
+    - name: create directory for nginx
+        file:
+            path: /etc/nginx/conf.d
+            state: directory
+
+- hosts: webservers
+    remote_user: satya.maharjan
+
+    task:
+    - name: create directory for nginx
+        file:
+            path: /etc/nginx/conf.d
+            state: directory
+............
+
+Playbook describe
+-how and in which order
+-at what time and where(on which machine)
+-what (modules) should be Executed 
+..ie Orcahestrates the module execution
+
+Naming play book is a good pratice
+-name: nginx creating directory for nginx
+    - hosts: webservers
+        remote_user: satya.maharjan
+
+        task:
+        - name: create directory for nginx
+            file:
+                path: /etc/nginx/conf.d
+                state: directory
+
+    - hosts: webservers
+        remote_user: satya.maharjan
+
+        task:
+        - name: create directory for nginx
+            file:
+                path: /etc/nginx/conf.d
+                state: directory
+
+webservers in host is define in Ansible Inverory List
+Host File
+
+[webservers]
+192.168.50.80
+192.168.50.81
+192.168.50.33
+
+[databases]
+192.168.50.100
+192.168.50.101
+
+Inverory = all the machine involved iin task execution
+ip/hostname
+
+Ansible Tower
+can be store anible playbook/file
+-assign to teams
+----
+
+Why Ansible
+-simple YAML
+-main agentless
+

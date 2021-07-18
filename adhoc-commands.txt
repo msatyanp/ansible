@@ -1,0 +1,21 @@
+Ad-hoc commands are great for tasks which are not repeated and done rarely.
+
+ansible testserver -m file -a "dest=/root/testF1 state=directory"
+create folder in remote server in dst /root/F1
+ansible testservers -m sheel -a "mkdir testF1"
+
+ansible testservers -m copy -a "scr=/root/index.php dest=/root/test"
+
+ansible testservers -m yum -a "name=wget state=present"
+install wget in testservers
+state=absent unistall or delete wget 
+
+#start a service
+ansible testservers -m service -a "name=httpd state=started"
+#stop service
+ansible testservers -m service -a "name=httpd state=stopped"
+##create/delete USER
+ansible testservers -m user -a "name=testuser"
+ansible testservers -m user -a "name=testuser password=<encryption>"
+ansible testservers -m user -a "name=testuser state=absent"
+

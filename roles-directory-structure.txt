@@ -1,0 +1,37 @@
+Defaults: Contains default variable for role which has lowest priority so they can be easily override.
+Vars: also contains variable for roles but has higher priority than defaults .
+task: contatins the main list of steps to be executed by the role.
+files: contains files which we want to copied to remote host.
+templates: contains files templates ehich supports modification from roles.
+meta: contains metadata of role like an authour,supported platform,dependencies
+handlers: contains handler which can be invoked by notify directory and are associated with service (restar ngxin)
+
+Creating a New role
+#ansible-galaxy
+ansible-galaxy init newrole
+
+satya@satyas-MacBook-Pro ansible-basic % ansible-galaxy init apache
+- Role apache was created successfully
+
+Using roles in playbook
+---
+    hosts: testservers
+    remote_user: root
+
+    roles:
+        - apache
+        - mysql
+ In role folder there needs to be apache and mysql folder       
+
+Handlers
+-handlers are tasks that only run when notified.
+-handlers are used in case when you want a task to run only when a change is made on a machine.
+nginx/apache restart when configuration is changed.
+
+playbook
+-set of task
+https://github.com/shazforiot/How-to-convert-ansible-playbook-to-roles/blob/main/roles/install/tasks/main.yml
+https://www.youtube.com/watch?v=9gOtL9Wy2aU&t=0s
+https://www.youtube.com/watch?v=jZep1jU396g
+
+brew cask install virtualbox;
